@@ -1,5 +1,6 @@
 package dev.celsoaquino.usermanagementapi.service;
 
+import dev.celsoaquino.usermanagementapi.dto.AuthResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,8 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public String authenticate(Authentication authentication) {
-        return jwtService.generateToken(authentication);
+    public AuthResponse authenticate(Authentication authentication) {
+        String token = jwtService.generateToken(authentication);
+        return new AuthResponse(token, "Bearer", 3600);
     }
 }
